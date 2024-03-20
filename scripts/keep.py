@@ -29,6 +29,9 @@ def login():
         token = r.json()["data"]["token"]
         keep_headers["Authorization"] = f"Bearer {token}"
         return get_run_id()
+    else:
+        print(r.text)
+        return None
 
 
 def get_run_id():
@@ -118,11 +121,12 @@ if __name__ == "__main__":
     notion_helper=NotionHelper()
     latest_id = get_lastest()
     logs = login()
-    #按照结束时间倒序排序
-    logs = sorted(logs, key=lambda x: x['endTime'])
-    for log in logs:
-        id = log.get("id")
-        if id == latest_id:
-            break
-        name = log.get("name")
-        get_run_data(id,name)
+    if logs:
+        #按照结束时间倒序排序
+        logs = sorted(logs, key=lambda x: x['endTime'])
+        for log in logs:
+            id = log.get("id")
+            if id == latest_id:
+                break
+            name = log.get("name")
+            get_run_data(id,name)
