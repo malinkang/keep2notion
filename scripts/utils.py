@@ -338,10 +338,10 @@ def str_to_timestamp(date):
     # 获取时间戳
     return int(dt.timestamp())
 
-upload_url = 'https://wereadassets.malinkang.com/'
+upload_url = 'https://i.malinkang.com/upload'
 
 
-def upload_image(folder_path, filename,file_path):
+def upload_heatmap(folder_path, filename,file_path):
     # 将文件内容编码为Base64
     with open(file_path, 'rb') as file:
         content_base64 = base64.b64encode(file.read()).decode('utf-8')
@@ -353,13 +353,25 @@ def upload_image(folder_path, filename,file_path):
         'folder': folder_path
     }
 
-    response = requests.post(upload_url, json=data)
+    response = requests.post("https://wereadassets.malinkang.com/", json=data)
 
     if response.status_code == 200:
         print('File uploaded successfully.')
         return response.text
     else:
         return None
+
+def upload_image(file_path):
+    with open(file_path, 'rb') as file:
+        files = {'file': file}
+        response = requests.post(upload_url, files=files)
+        print(response.text)
+        if response.status_code == 200:
+            url = 'https://i.malinkang.com'+response.json()[0].get("src")
+            return url
+        else:
+            print("File upload failed")
+            return None
 
 def url_to_md5(url):
     # 创建一个md5哈希对象
@@ -402,4 +414,4 @@ def download_image(url, save_dir="cover"):
 
 def upload_cover(url):
     cover_file = download_image(url)
-    return upload_image("cover",f"{cover_file.split('/')[-1]}",cover_file)
+    return upload_image(cover_file)

@@ -1,10 +1,8 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 import argparse
-import json
 import os
-import time
-
+from dotenv import load_dotenv
 import pendulum
 from notion_helper import NotionHelper
 import requests
@@ -13,11 +11,12 @@ from config import workout_properties_type_dict
 LOGIN_API = "https://api.gotokeep.com/v1.1/users/login"
 RUN_DATA_API = "https://api.gotokeep.com/pd/v3/stats/detail?dateUnit=all&type=running&lastDate={last_date}"
 RUN_LOG_API = "https://api.gotokeep.com/pd/v3/runninglog/{run_id}"
+
 keep_headers = {
     "User-Agent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0",
     "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
 }
-
+load_dotenv()
 
 def login():
     mobile = os.getenv("KEEP_MOBILE")
@@ -108,8 +107,9 @@ def add_to_notion(workout,end_time,cover):
         if cover and len(cover) <=2000:
             pass
         else:
-            cover="https://images.unsplash.com/photo-1547483238-f400e65ccd56?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        print(f"cover = {cover}")
+            cover = utils.upload_cover(cover)
+            if cover is None:
+                cover="https://images.unsplash.com/photo-1547483238-f400e65ccd56?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         notion_helper.create_page(
             parent=parent, properties=properties,cover=utils.get_icon(cover), icon=icon
         )
