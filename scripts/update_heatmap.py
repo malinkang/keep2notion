@@ -1,6 +1,6 @@
 import argparse
 import os
-from utils import upload_heatmap
+from utils import get_embed
 from notion_helper import NotionHelper
 def get_file():
     # 设置文件夹路径
@@ -20,7 +20,13 @@ if __name__ == "__main__":
     notion_helper = NotionHelper()
     image_file = get_file()
     if image_file:
-        image_url = upload_heatmap(f"heatmap/{os.getenv('REPOSITORY').split('/')[0]}",image_file,f"./OUT_FOLDER/{image_file}")
-        block_id = notion_helper.image_dict.get("id")
-        if(image_url and block_id):
-            notion_helper.update_image_block_link(block_id,image_url)
+        image_url = f"https://raw.githubusercontent.com/{os.getenv('REPOSITORY')}/{os.getenv('REF').split('/')[-1]}/OUT_FOLDER/{image_file}"
+        heatmap_url = f"https://heatmap.malinkang.com/?image={image_url}"
+        if notion_helper.heatmap_block_id:
+            response = notion_helper.update_heatmap(
+                block_id=notion_helper.heatmap_block_id, url=heatmap_url
+            )
+        else:
+            response = notion_helper.append_blocks(
+                block_id=notion_helper.page_id, children=[get_embed(heatmap_url)]
+            )
