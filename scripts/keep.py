@@ -96,23 +96,23 @@ def get_run_data(id,name):
         add_to_notion(workout,end_time,cover)
 
 def add_to_notion(workout,end_time,cover):
-        properties = utils.get_properties(workout, workout_properties_type_dict)
-        notion_helper.get_date_relation(properties,end_time)
-        parent = {
-            "database_id": notion_helper.workout_database_id,
-            "type": "database_id",
-        }
-        icon = {"type": "emoji", "emoji": "🏃🏻"}
-        #封面长图有限制
-        if cover and len(cover) <=2000:
-            pass
-        else:
-            cover = utils.upload_cover(cover)
-            if cover is None:
-                cover="https://images.unsplash.com/photo-1547483238-f400e65ccd56?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        notion_helper.create_page(
-            parent=parent, properties=properties,cover=utils.get_icon(cover), icon=icon
-        )
+    properties = utils.get_properties(workout, workout_properties_type_dict)
+    notion_helper.get_date_relation(properties,end_time)
+    parent = {
+        "database_id": notion_helper.workout_database_id,
+        "type": "database_id",
+    }
+    icon = {"type": "emoji", "emoji": "🏃🏻"}
+    #封面长图有限制
+    if cover and len(cover) <=2000:
+        pass
+    else:
+        cover = utils.upload_cover(cover)
+        if cover is None:
+            cover="https://images.unsplash.com/photo-1547483238-f400e65ccd56?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    notion_helper.create_page(
+        parent=parent, properties=properties,cover=utils.get_icon(cover), icon=icon
+    )
 
 
 
@@ -120,13 +120,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     notion_helper=NotionHelper()
     latest_id = get_lastest()
+    print(f"latest_id = {latest_id}")
     logs = login()
     if logs:
         #按照结束时间倒序排序
         logs = sorted(logs, key=lambda x: x['endTime'])
         for log in logs:
             id = log.get("id")
+            name = log.get("name")
+            print(f"id = {id} {name}")
             if id == latest_id:
                 break
-            name = log.get("name")
             get_run_data(id,name)
