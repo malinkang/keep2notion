@@ -34,6 +34,7 @@ class NotionHelper:
         "WEEK_DATABASE_NAME": "周",
         "MONTH_DATABASE_NAME": "月",
         "YEAR_DATABASE_NAME": "年",
+        "TYPE_DATABASE_NAME": "运动类型",
         "ALL_DATABASE_NAME": "全部",
     }
     database_id_dict = {}
@@ -64,6 +65,9 @@ class NotionHelper:
         )
         self.all_database_id = self.database_id_dict.get(
             self.database_name_dict.get("ALL_DATABASE_NAME")
+        )        
+        self.type_database_id = self.database_id_dict.get(
+            self.database_name_dict.get("TYPE_DATABASE_NAME")
         )
         if self.day_database_id:
             self.write_database_id(self.day_database_id)

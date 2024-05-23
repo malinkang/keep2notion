@@ -22,4 +22,5 @@ workout_properties_type_dict = {
     "结束时间":DATE,
     "Id":RICH_TEXT,
     "名字":RICH_TEXT,
+    "运动类型":RELATION,
 }
