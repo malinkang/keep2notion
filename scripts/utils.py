@@ -414,7 +414,8 @@ def download_image(url, save_dir="cover"):
 
 def upload_cover(url):
     cover_file = download_image(url)
-    return upload_image(cover_file)
+    return f"https://raw.githubusercontent.com/{os.getenv('REPOSITORY')}/{os.getenv('REF').split('/')[-1]}/{cover_file}"
+#     return upload_image(cover_file)
 
 def get_embed(url):
     return {"type": "embed", "embed": {"url": url}}
