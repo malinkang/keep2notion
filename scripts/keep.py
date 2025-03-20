@@ -102,7 +102,6 @@ def get_run_data(log):
 
 
 def add_to_notion(workout, end_time, icon, cover):
-    print(workout)
     properties = utils.get_properties(workout, workout_properties_type_dict)
     notion_helper.get_date_relation(properties, end_time)
     parent = {
@@ -134,5 +133,8 @@ if __name__ == "__main__":
         for log in logs:
             id = log.get("id")
             if id in s:
+                continue
+            #去掉重复数据
+            if log.get("isDoubtful"):
                 continue
             get_run_data(log)
