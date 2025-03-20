@@ -36,6 +36,7 @@ class NotionHelper:
         "YEAR_DATABASE_NAME": "年",
         "TYPE_DATABASE_NAME": "运动类型",
         "ALL_DATABASE_NAME": "全部",
+        "WEIGHT_DATABASE_NAME": "体重",
     }
     database_id_dict = {}
     image_dict = {}
@@ -68,6 +69,9 @@ class NotionHelper:
         )        
         self.type_database_id = self.database_id_dict.get(
             self.database_name_dict.get("TYPE_DATABASE_NAME")
+        )        
+        self.weight_database_id = self.database_id_dict.get(
+            self.database_name_dict.get("WEIGHT_DATABASE_NAME")
         )
         if self.day_database_id:
             self.write_database_id(self.day_database_id)
