@@ -1,0 +1,54 @@
+{
+    "ok": true,
+    "data": {
+        "itemList": [
+            {
+                "userEquipmentId": "67e0daa895339a000193f98f",
+                "productId": "6344df123114a500015ef6b9",
+                "itemId": "6716035c66fe720001d49d55",
+                "name": "Mizuno Racer S",
+                "image": "https://equip.keepcdn.com/equip-picture/resize-picture/0867fdf1_1727077036552__hd_new_color.png",
+                "desc": "累计跑步里程 5.23 公里",
+                "schema": "keep://community/entityinfo?entityId=6344df123114a500015ef6b9&type=equipment",
+                "enableBind": true,
+                "bindDesc": "关联 1 条运动记录",
+                "equipmentType": "shoe",
+                "bindStatus": false,
+                "bindLog": true,
+                "brandId": "6344de873114a500015ef637",
+                "brandName": "Mizuno",
+                "notStored": false,
+                "kit": false,
+                "fatherType": null,
+                "lastTime": 0
+            },
+            {
+                "userEquipmentId": "64a54ebb40be030001af562c",
+                "productId": "6344df2d3114a500015f0989",
+                "itemId": "6344df2d3114a500015f098a",
+                "name": "New Balance 574",
+                "image": "https://equip.keepcdn.com/equip-picture/resize-picture/6fad6e55_1729508223181_color.png",
+                "desc": "累计跑步里程 2091.05 公里",
+                "schema": "keep://community/entityinfo?entityId=6344df2d3114a500015f0989&type=equipment",
+                "enableBind": true,
+                "bindDesc": "关联 531 条运动记录",
+                "equipmentType": "shoe",
+                "bindStatus": false,
+                "bindLog": true,
+                "brandId": "6344de873114a500015ef638",
+                "brandName": "new balance",
+                "notStored": false,
+                "kit": false,
+                "fatherType": null,
+                "lastTime": 0
+            }
+        ],
+        "lastId": "64a54ebb40be030001af562c",
+        "schema": null,
+        "subtype": null,
+        "duplicateBindDesc": "该条运动记录已关联其他装备，确定重新关联当前装备吗？",
+        "dataType": null
+    },
+    "errorCode": 0,
+    "text": ""
+}

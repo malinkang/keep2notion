@@ -13,6 +13,8 @@ from config import workout_properties_type_dict
 LOGIN_API = "https://api.gotokeep.com/v1.1/users/login"
 DATA_API = "https://api.gotokeep.com/pd/v3/stats/detail?dateUnit=all&type=all&lastDate={last_date}"
 LOG_API = "https://api.gotokeep.com/pd/v3/{type}log/{id}"
+# https://api.gotokeep.com/feynman/v8/data-center/sub/sport-log?sportType=Running&dateUnit=all
+#https://api.gotokeep.com/equipment-webapp/user/equipment/67e0daa895339a000193f98f
 WEIGHT = "https://api.gotokeep.com/feynman/v3/data-center/sub/body-data/detail?indicatorType=WEIGHT&pageSize=10"
 
 keep_headers = {
@@ -44,7 +46,6 @@ def get_weight_data():
         url = WEIGHT
         if next_page_token:
             url += f"&nextPageToken={next_page_token}"
-
         response = requests.get(url, headers=keep_headers)
         if response.ok:
             data = response.json().get("data", {})
@@ -151,6 +152,16 @@ def get_run_data(log):
             notion_helper.get_relation_id(
                 log.get("name"), id=notion_helper.type_database_id, icon=log.get("icon"))
         ]
+        type_name = None
+        if (log.get("type") == "running"):
+            type_name = "跑步"
+        elif (log.get("type") == "running"):
+            type_name = "行走"
+        elif (log.get("type")=="cycling"):
+            type_name = "骑行"
+        if type_name:
+            workout["运动类型"].append(notion_helper.get_relation_id(
+                type_name, id=notion_helper.type_database_id, icon=log.get("icon")))
         heartRate = data.get("heartRate")
         if heartRate:
             workout["平均心率"] = heartRate.get("averageHeartRate")
