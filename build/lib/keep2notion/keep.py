@@ -28,11 +28,7 @@ def get_equipment():
         response = requests.get(
             f"https://api.gotokeep.com/equipment-webapp/enableBind/my/all/list?firstCategory={category}", headers=keep_headers)
         if response.ok:
-            data = response.json().get("data")
-            if data:
-                itemList = data.get("itemList")
-                if itemList:
-                    results.extend(itemList)
+            results.extend(response.json().get("data").get("itemList"))
         else:
             print("请求失败:", response.text)
     return results
@@ -246,8 +242,8 @@ def get_run_data(log,equipment_dict):
         type_name = None
         if (log.get("type") == "running"):
             type_name = "跑步"
-        elif (log.get("type") == "hiking"):
-            type_name = "步行"
+        elif (log.get("type") == "running"):
+            type_name = "行走"
         elif (log.get("type") == "cycling"):
             type_name = "骑行"
         if type_name:
