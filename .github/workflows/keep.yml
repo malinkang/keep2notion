@@ -16,6 +16,7 @@ jobs:
         NOTION_PAGE: ${{ secrets.NOTION_PAGE }}
         KEEP_MOBILE: ${{ secrets.KEEP_MOBILE }}
         KEEP_PASSWORD: ${{ secrets.KEEP_PASSWORD }}
+        COUNTRY_CODE: ${{ secrets.COUNTRY_CODE }}
         YEAR: ${{ vars.YEAR }}
         REF: ${{ github.ref }}
         REPOSITORY: ${{ github.repository }}

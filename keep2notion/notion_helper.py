@@ -166,9 +166,15 @@ class NotionHelper:
         if len(response.get("results")) == 0:
             parent = {"database_id": id, "type": "database_id"}
             properties["标题"] = get_title(name)
-            page_id = self.client.pages.create(
-                parent=parent, properties=properties, icon=get_icon(icon)
-            ).get("id")
+            icon_value = get_icon(icon)
+            if icon_value in ("", None):
+                page_id = self.client.pages.create(
+                    parent=parent, properties=properties
+                ).get("id")
+            else:
+                page_id = self.client.pages.create(
+                    parent=parent, properties=properties, icon=icon_value
+                ).get("id")
             if id == self.type_database_id:
                 self.append_blocks(
                     block_id=page_id,

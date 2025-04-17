@@ -39,9 +39,10 @@ def get_equipment():
 
 
 def login():
+    countryCode = os.getenv("COUNTRY_CODE","86")
     mobile = os.getenv("KEEP_MOBILE")
     password = os.getenv("KEEP_PASSWORD")
-    data = {"mobile": mobile, "password": password}
+    data = {"mobile": mobile, "password": password,"countryCode":countryCode}
     r = requests.post(LOGIN_API, headers=keep_headers, data=data)
     if r.ok:
         print("登录成功")
