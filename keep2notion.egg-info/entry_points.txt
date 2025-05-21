@@ -1,0 +1,3 @@
+[console_scripts]
+keep2notion = keep2notion.keep:main
+update_heatmap = keep2notion.update_heatmap:main
